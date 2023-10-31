@@ -1,0 +1,8 @@
+.endcap {
+    align-items: center;
+    background-color: green;
+}
+
+.endcap:last-child {
+    background-color: red;
+}
