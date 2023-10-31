@@ -6,3 +6,11 @@
 .endcap:last-child {
     background-color: red;
 }
+
+td {
+    border-radius: 25px;
+    background-color: yellow;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+}
