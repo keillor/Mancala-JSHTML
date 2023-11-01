@@ -8,56 +8,94 @@
       <table>
         <tr class="upper">
           <td class="endcap" rowspan="2">A</td>
-          <td id="0">3</td>
+          <td id="0" value="0"></td>
           <td id="1"></td>
           <td id="2"></td>
           <td id="3"></td>
           <td id="4"></td>
+          <td id="5"></td>
           <td class="endcap" rowspan="2">B</td>
         </tr>
         <tr class="lower">
+
+          <td id="11"></td>
+          <td id="10"></td>
           <td id="9"></td>
           <td id="8"></td>
           <td id="7"></td>
           <td id="6"></td>
-          <td id="5"></td>
+          
         </tr>
       </table>
     </div>
     <script>
-      //grabbing center cells
-      const pitsA = document.querySelectorAll(".upper td:not(.endcap)");
-      const pitsB = document.querySelectorAll(".lower td");
-      //sorting the pits
+
+      //INITIALIZE
+
+      //grabbing all cells
+      const pitsA = document.querySelectorAll(".upper td:not(.endcap)"); //everything on the top and the two end zones.
+      const pitsB = document.querySelectorAll(".lower td"); //everything on the bottom and no end zones.
+
+      //seperating goal A and goal B into seperate elements for ease of use
+      const goals = document.querySelectorAll("td.endcap");
+      goals.forEach(x=>x.setAttribute("value", "0"));
+      
+
+      pitsA.forEach(x => {
+        x.setAttribute("value", "4");
+        x.addEventListener("click", move_next);
+      });
+      pitsB.forEach(x => {
+        x.setAttribute("value", "4");
+        x.addEventListener("click", move_next);
+      });
+
+
+      // Player A moves will use the first, while when player B moves it uses the second.
+      // This is to avoid needing to do extra logic when moving around the board and allows for more code reuse. 
       var myPitsA = [];
       var myPitsB = [];
+
       for (let pit of pitsA) {
         myPitsA.push(pit);
         myPitsB.push(pit);
       }
-      for (let i = 4; i >= 0; i--) {
+
+      // Add B goal to middle of B list.
+      myPitsB.push(goals[1]);
+
+
+      for (let i = pitsB.length-1; i >= 0; i--) {
         myPitsA.push(pitsB[i]);
-      }
-      for (let pit of myPitsA) {
-        pit.addEventListener("click", move_next);
+        myPitsB.push(pitsB[i]);
       }
 
-      //seperating goal A and goal B into seperate elements for ease of use
-      const goals = document.querySelectorAll("td.endcap");
-      const goalA = goals[0];
-      const goalB = goals[1];
+      //add A goal to end of A list.
+      myPitsA.push(goals[0]);
+      console.log(myPitsA);
+
+      //END INITIALIZE
 
       function move_next(event) {
-        var numMoves = event.target.innerText;
-        var nextPOS = 0;
-        for (let i = 0; i < event.target.innerText; i++) {
-          numPOS = event.target;
-          /*if (numPOS == 10) {
+        var stones = event.target.value;
+        var nextPOS = myPitsA[event.target.id];
+        console.log(nextPOS);
+        for (let i = stones; i > 0; i--) {
+          numPOS = event.target.id;
+          if (i == 11) {
             numPOS = 0;
-          }*/
+          }
+          
           console.log(numPOS);
-          numMoves--;
+          stones--;
         }
+      }
+
+      function num_check(num) {
+        if(num > 12) {
+          return num % 12; 
+        }
+        return num;
       }
     </script>
   </body>
