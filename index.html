@@ -8,7 +8,7 @@
       <table>
         <tr class="upper">
           <td class="endcap" rowspan="2">A</td>
-          <td id="0"></td>
+          <td id="0">3</td>
           <td id="1"></td>
           <td id="2"></td>
           <td id="3"></td>
@@ -29,15 +29,16 @@
       const pitsA = document.querySelectorAll(".upper td:not(.endcap)");
       const pitsB = document.querySelectorAll(".lower td");
       //sorting the pits
-      var myPits = [];
+      var myPitsA = [];
+      var myPitsB = [];
       for (let pit of pitsA) {
-        myPits.push(pit);
+        myPitsA.push(pit);
+        myPitsB.push(pit);
       }
       for (let i = 4; i >= 0; i--) {
-        myPits.push(pitsB[i]);
+        myPitsA.push(pitsB[i]);
       }
-      console.log(myPits);
-      for (let pit of myPits) {
+      for (let pit of myPitsA) {
         pit.addEventListener("click", move_next);
       }
 
@@ -47,8 +48,16 @@
       const goalB = goals[1];
 
       function move_next(event) {
-        console.log(event.target.id);
-        console.log(myPits[event.target.id]);
+        var numMoves = event.target.innerText;
+        var nextPOS = 0;
+        for (let i = 0; i < event.target.innerText; i++) {
+          numPOS = event.target;
+          /*if (numPOS == 10) {
+            numPOS = 0;
+          }*/
+          console.log(numPOS);
+          numMoves--;
+        }
       }
     </script>
   </body>
