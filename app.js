@@ -1,6 +1,7 @@
 // Initial Board State
 let board = [4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0];
 // let board = [4, 4, 4, 4, 1, 0, 0, 4, 4, 4, 4, 1, 0, 0];
+// let board = [4, 4, 4, 4, 4, 15, 0, 4, 4, 4, 4, 4, 4, 0];
 let gameFinished = false;
 let currentPlayer = 1;
 let boardIndex = 0;
@@ -54,7 +55,7 @@ function makeMove() {
   board[boardIndex] = 0;
 
   // Empties selected pit and circles board
-  // Not circling board correctly
+  // Not circling board correctly on big values
   // Need to fix the way boardIndex is updated
   while (numPebbles > 0) {
     numPebbles -= 1;
