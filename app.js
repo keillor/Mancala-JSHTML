@@ -97,7 +97,7 @@ function addToPits(startingPit, currentPlayer) {
       }
     }
   }
-  
+  document.getElementById(`pit${pit}`).innerText = board[pit];
 }
 
 
