@@ -4,7 +4,7 @@ let gameFinished = false;
 let currentPlayer = 1;
 let boardIndex = 0;
 
-const player1_moves = new Set(["pit1", "pit2", "pit3", "pit4", "pit5", "pit7"]);
+const player1_moves = new Set(["pit1", "pit2", "pit3", "pit4", "pit5", "pit6"]);
 
 const player2_moves = new Set([
   "pit7",
@@ -58,6 +58,9 @@ function makeMove() {
     if (boardIndex != skipIndex) {
       board[boardIndex] += 1;
     }
+    if (boardIndex > 12) {
+      boardIndex = -1;
+    }
     updateBoard();
   }
   console.log(board);
@@ -65,8 +68,8 @@ function makeMove() {
 
 function updateBoard() {
   // Player 1 Pits
-  for (let i = 1; i <= 6; i++) {
-    document.getElementById(`pit${i}`).innerText = board[i - 1];
+  for (let i = 0; i <= 5; i++) {
+    document.getElementById(`pit${i + 1}`).innerText = board[i];
   }
   // Player 2 Pits
   for (let i = 7; i <= 12; i++) {
