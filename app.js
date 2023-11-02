@@ -1,5 +1,6 @@
 // Initial Board State
 let board = [4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0];
+// let board = [4, 4, 4, 4, 1, 0, 0, 4, 4, 4, 4, 1, 0, 0];
 let gameFinished = false;
 let currentPlayer = 1;
 let boardIndex = 0;
@@ -64,6 +65,20 @@ function makeMove() {
     updateBoard();
   }
   console.log(board);
+  if (boardIndex == 6 || boardIndex == -1) {
+    currentPlayer = currentPlayer === 1 ? 2 : 1;
+  } else if (board[boardIndex] == 1 && board[12 - boardIndex] > 0) {
+    if (currentPlayer == 1) {
+      board[6] += board[12 - boardIndex];
+      board[6] += board[boardIndex];
+    } else {
+      board[13] += board[12 - boardIndex];
+      board[13] += board[boardIndex];
+    }
+    board[12 - boardIndex] = 0;
+    board[boardIndex] = 0;
+  }
+  updateBoard(0);
 }
 
 function updateBoard() {
