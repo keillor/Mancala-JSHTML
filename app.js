@@ -53,6 +53,9 @@ function makeMove() {
   numPebbles = board[boardIndex];
   board[boardIndex] = 0;
 
+  // Empties selected pit and circles board
+  // Not circling board correctly
+  // Need to fix the way boardIndex is updated
   while (numPebbles > 0) {
     numPebbles -= 1;
     boardIndex += 1;
@@ -64,8 +67,10 @@ function makeMove() {
     }
     updateBoard();
   }
+
   console.log(board);
   // Gives user extra turn if they end on their own pit
+  // will need to update boardIndex once fixed in function above
   if (
     (currentPlayer == 1 && boardIndex == 6) ||
     (currentPlayer == 2 && boardIndex == -1)
