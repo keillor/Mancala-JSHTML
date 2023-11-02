@@ -1,5 +1,5 @@
 // Initial Board State
-let board = [0, 27, 4, 3, 4, 4, 4, 15, 3, 4, 4, 4, 8, 0];
+let board = [0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0];
 let gameFinished = false;
 let currentPlayer = 1;
 let p1MinPit = 1;
@@ -25,6 +25,13 @@ function switchTurn() {
   currentPlayer = currentPlayer === 1 ? 2 : 1;
   document.getElementById("current-player").innerText = currentPlayer;
 }
+
+function keepTurn() {
+  currentPlayer = currentPlayer === 1 ? 2 : 0;
+  document.getElementById("current-player").innerText = currentPlayer;
+}
+
+
 function isValidMove(pit) {
   // Logic to check if valid move
   if (currentPlayer == 1 && player1_moves.has(pit)) {
@@ -52,13 +59,16 @@ function addToPits(startingPit, currentPlayer) {
   let totalGems = board[pit];
   let nextPit = pit + 1;
   let pitSide = currentPlayer;
+  let lastGem = totalGems - 1;
 
   board[pit] = 0;
   
   for (let i = 0; i < totalGems; i++) {
     if (pitSide == 1) {
-      
       if (nextPit == 7 && currentPlayer == 1)  {
+        if (i == lastGem) {
+          keepTurn();
+        }
         p1Store += 1;
         document.getElementById("store-player1").innerText = p1Store
         pitSide = 2;
@@ -76,8 +86,10 @@ function addToPits(startingPit, currentPlayer) {
       }
     }
     else {
-      
       if (nextPit == 13 && currentPlayer == 2) {
+        if (i == lastGem) {
+          keepTurn();
+        }
         p2Store += 1;
         document.getElementById("store-player2").innerText = p2Store
         nextPit = 1;
