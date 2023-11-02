@@ -78,6 +78,8 @@ function makeMove() {
     currentPlayer = currentPlayer === 1 ? 2 : 1;
   }
   // Captures pieces from opposite pit if player ends on a pit with 1 pebble
+  // Need to add condition to check if player ended in their own row as well
+  // Will add that condition once boardIndex is fixed above
   else if (board[boardIndex] == 1 && board[12 - boardIndex] > 0) {
     if (currentPlayer == 1) {
       board[6] += board[12 - boardIndex];
