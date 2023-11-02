@@ -65,9 +65,15 @@ function makeMove() {
     updateBoard();
   }
   console.log(board);
-  if (boardIndex == 6 || boardIndex == -1) {
+  // Gives user extra turn if they end on their own pit
+  if (
+    (currentPlayer == 1 && boardIndex == 6) ||
+    (currentPlayer == 2 && boardIndex == -1)
+  ) {
     currentPlayer = currentPlayer === 1 ? 2 : 1;
-  } else if (board[boardIndex] == 1 && board[12 - boardIndex] > 0) {
+  }
+  // Captures pieces from opposite pit if player ends on a pit with 1 pebble
+  else if (board[boardIndex] == 1 && board[12 - boardIndex] > 0) {
     if (currentPlayer == 1) {
       board[6] += board[12 - boardIndex];
       board[6] += board[boardIndex];
@@ -78,7 +84,7 @@ function makeMove() {
     board[12 - boardIndex] = 0;
     board[boardIndex] = 0;
   }
-  updateBoard(0);
+  updateBoard();
 }
 
 function updateBoard() {
