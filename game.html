@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mancala</title>
+    <style>
+      .board {
+        display: flex;
+      }
+
+      #row1,
+      #row2 {
+        display: flex;
+      }
+      .store,
+      .pit {
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 10px;
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="board">
+      <div class="store" id="store-player2">Store</div>
+      <div class="rows">
+        <div class="row" id="row1">
+          <div class="pit" id="pit12" value="12">Pit</div>
+          <div class="pit" id="pit11" value="11">Pit</div>
+          <div class="pit" id="pit10" value="10">Pit</div>
+          <div class="pit" id="pit9" value="9">Pit</div>
+          <div class="pit" id="pit8" value="8">Pit</div>
+          <div class="pit" id="pit7" value="7">Pit</div>
+        </div>
+        <div id="row2">
+          <div class="pit" id="pit1" value="6">Pit</div>
+          <div class="pit" id="pit2" value="5">Pit</div>
+          <div class="pit" id="pit3" value="4">Pit</div>
+          <div class="pit" id="pit4" value="3">Pit</div>
+          <div class="pit" id="pit5" value="2">Pit</div>
+          <div class="pit" id="pit6" value="1">Pit</div>
+        </div>
+      </div>
+      <div class="store" id="store-player1">Store</div>
+    </div>
+    <div class="player-turn">
+      Player <span id="current-player">1</span>'s turn
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
