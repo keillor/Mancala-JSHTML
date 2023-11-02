@@ -1,5 +1,5 @@
 // Initial Board State
-let board = [0, 8, 4, 3, 4, 4, 4, 4, 3, 4, 4, 4, 8, 0];
+let board = [0, 15, 4, 3, 4, 4, 4, 4, 3, 4, 4, 4, 8, 0];
 let gameFinished = false;
 let currentPlayer = 1;
 let p1MinPit = 1;
@@ -53,9 +53,11 @@ function addToPits(startingPit, currentPlayer) {
   let nextPit = pit + 1;
   let pitSide = currentPlayer;
 
-
+  board[pit] = 0;
+  
   for (let i = 0; i < totalGems; i++) {
     if (pitSide == 1) {
+      
       if (nextPit == 7 && currentPlayer == 1)  {
         p1Store += 1;
         document.getElementById("store-player1").innerText = p1Store
@@ -73,6 +75,7 @@ function addToPits(startingPit, currentPlayer) {
       }
     }
     else {
+      
       if (nextPit == 13 && currentPlayer == 2) {
         p2Store += 1;
         document.getElementById("store-player2").innerText = p2Store
