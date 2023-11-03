@@ -4,7 +4,7 @@
 // let board = [4, 4, 4, 4, 4, 15, 0, 4, 4, 4, 4, 4, 15, 0];
 // let board = [0, 4, 1, 1, 3, 15, 0, 0, 0, 4, 4, 4, 3, 0];
 let board = [0, 0, 0, 0, 0, 1, 0, 0, 0, 4, 4, 4, 3, 0];
-let gameFinished = false;
+// let gameFinished = false;
 let currentPlayer = 1;
 let boardIndex = 0;
 
@@ -136,7 +136,16 @@ function gameOver() {
 
   if (player1_wins || player2_wins) {
     alert("Player wins!");
+    resetGame();
+    player1_wins = false;
+    player2_wins = false;
   }
+}
+
+function resetGame() {
+  board = [4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0];
+  currentPlayer = 1;
+  boardIndex = 0;
 }
 
 function updateBoard() {
