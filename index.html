@@ -7,14 +7,14 @@
     <div class="board">
       <table>
         <tr class="upper">
-          <td class="endcap" rowspan="2">A</td>
+          <td class="endcap" rowspan="2">B</td>
           <td id="0"></td>
           <td id="1"></td>
           <td id="2"></td>
           <td id="3"></td>
           <td id="4"></td>
           <td id="5"></td>
-          <td class="endcap" rowspan="2">B</td>
+          <td class="endcap" rowspan="2">A</td>
         </tr>
         <tr class="lower">
           <td id="11"></td>
@@ -25,9 +25,12 @@
           <td id="6"></td>
         </tr>
       </table>
+      <h3>Turn: Player A</h3>
     </div>
     <script>
       //INITIALIZE
+      const turnText = document.querySelector("h3");
+
       let player1Turn = true;
       //grabbing all cells
       const pitsA = document.querySelectorAll(".upper td:not(.endcap)"); //everything on the top and the two end zones.
@@ -36,6 +39,7 @@
       //seperating goal A and goal B into seperate elements for ease of use
       const goals = document.querySelectorAll("td.endcap");
       goals.forEach((x) => x.setAttribute("value", "0"));
+      console.log(goals[0].getAttribute("class"));
 
       // Player A moves will use the first, while when player B moves it uses the second.
       // This is to avoid needing to do extra logic when moving around the board and allows for more code reuse.
@@ -62,12 +66,12 @@
       pitsA.forEach((x) => {
         x.setAttribute("value", "4");
         x.addEventListener("click", () => {
-          move_next(event, myPitsA);
+          move_next(event, myPitsB);
         });
       });
       pitsB.forEach((x) => {
         x.setAttribute("value", "4");
-        x.addEventListener("click", () => move_next(event, myPitsB));
+        x.addEventListener("click", () => move_next(event, myPitsA));
       });
 
       //END INITIALIZE
@@ -80,18 +84,37 @@
           alert("Invalid Move!");
           return 0;
         }
-        let stones = Number(event.target.getAttribute("value"));
-        event.target.setAttribute("value", 0);
-        console.log(stones);
-        let numPOS = num_check(playerPits.indexOf(event.target) + 1);
 
+        let stones = Number(event.target.getAttribute("value"));
+        if (stones == 0) {
+          alert("Must select a pit with pebbles inside.");
+          return 0;
+        }
+        let bonusBool = false;
+        event.target.setAttribute("value", 0);
+        let numPOS = num_check(playerPits.indexOf(event.target) + 1);
         while (stones > 0) {
           var newStones = Number(playerPits[numPOS].getAttribute("value")) + 1;
           playerPits[numPOS].setAttribute("value", newStones);
+          //see if last stone lands in goal
+          console.log(playerPits[numPOS].getAttribute("class"));
+          if (stones == 1) {
+            if (bonusBool) {
+              //steal pebbles from opposite side
+            } else if (playerPits[numPOS].getAttribute("class") == "endcap") {
+              //player qualifies for bonus turn!
+              return;
+            }
+          }
           stones = stones - 1;
           numPOS = num_check(numPOS + 1);
         }
         player1Turn = !player1Turn;
+        if (player1Turn) {
+          turnText.innerText = "Turn: Player A";
+        } else {
+          turnText.innerText = "Turn: Player B";
+        }
       }
 
       function num_check(num) {
