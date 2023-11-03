@@ -28,7 +28,7 @@
     </div>
     <script>
       //INITIALIZE
-
+      let player1Turn = true;
       //grabbing all cells
       const pitsA = document.querySelectorAll(".upper td:not(.endcap)"); //everything on the top and the two end zones.
       const pitsB = document.querySelectorAll(".lower td"); //everything on the bottom and no end zones.
@@ -67,12 +67,19 @@
       });
       pitsB.forEach((x) => {
         x.setAttribute("value", "4");
-        x.addEventListener("click", () => move_next(event, myPitsA));
+        x.addEventListener("click", () => move_next(event, myPitsB));
       });
 
       //END INITIALIZE
 
       function move_next(event, playerPits) {
+        if (Number(event.target.id) < 6 && !player1Turn) {
+          alert("Invalid Move!");
+          return 0;
+        } else if (Number(event.target.id) >= 6 && player1Turn) {
+          alert("Invalid Move!");
+          return 0;
+        }
         let stones = Number(event.target.getAttribute("value"));
         event.target.setAttribute("value", 0);
         console.log(stones);
@@ -84,6 +91,7 @@
           stones = stones - 1;
           numPOS = num_check(numPOS + 1);
         }
+        player1Turn = !player1Turn;
       }
 
       function num_check(num) {
