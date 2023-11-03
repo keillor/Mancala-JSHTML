@@ -1,7 +1,9 @@
 // Initial Board State
 // let board = [4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0];
 // let board = [4, 4, 4, 4, 1, 0, 0, 4, 4, 4, 4, 1, 0, 0];
-let board = [4, 4, 4, 4, 4, 15, 0, 4, 4, 4, 4, 4, 15, 0];
+// let board = [4, 4, 4, 4, 4, 15, 0, 4, 4, 4, 4, 4, 15, 0];
+// let board = [0, 4, 1, 1, 3, 15, 0, 0, 0, 4, 4, 4, 3, 0];
+let board = [0, 0, 0, 0, 0, 1, 0, 0, 0, 4, 4, 4, 3, 0];
 let gameFinished = false;
 let currentPlayer = 1;
 let boardIndex = 0;
@@ -55,7 +57,7 @@ function makeMove() {
   board[boardIndex] = 0;
 
   // Empties selected pit and circles board
-  // Not circling board correctly on big values
+  // Not circling board correctly on big values ?
   // Need to fix the way boardIndex is updated
   while (numPebbles > 0) {
     numPebbles -= 1;
@@ -71,30 +73,70 @@ function makeMove() {
     updateBoard();
   }
 
+  if (boardIndex == -1) {
+    boardIndex == 13;
+  }
+
   console.log(board);
+
+  // Captures pieces from opposite pit if player ends on a pit with 1 pebble
+  if (board[boardIndex] == 1 && board[12 - boardIndex] > 0) {
+    // Checks currentPlayer vs row in board to verify capture
+    if (currentPlayer == 1 && boardIndex > 0 && boardIndex < 7) {
+      // Adds captured pieces to player store
+      board[6] += board[12 - boardIndex];
+      board[6] += board[boardIndex];
+      board[12 - boardIndex] = 0;
+      board[boardIndex] = 0;
+    } else if (currentPlayer == 2 && (boardIndex < 0 || boardIndex > 7)) {
+      board[13] += board[12 - boardIndex];
+      board[13] += board[boardIndex];
+      board[12 - boardIndex] = 0;
+      board[boardIndex] = 0;
+    }
+    // console.log(`Board Index: ${boardIndex}`);
+    // console.log(`Current Player: ${currentPlayer}`);
+  }
   // Gives user extra turn if they end on their own pit
   // will need to update boardIndex once fixed in function above
-  if (
+  else if (
     (currentPlayer == 1 && boardIndex == 6) ||
     (currentPlayer == 2 && boardIndex == -1)
   ) {
     currentPlayer = currentPlayer === 1 ? 2 : 1;
   }
-  // Captures pieces from opposite pit if player ends on a pit with 1 pebble
-  // Need to add condition to check if player ended in their own row as well
-  // Will add that condition once boardIndex is fixed above
-  else if (board[boardIndex] == 1 && board[12 - boardIndex] > 0) {
-    if (currentPlayer == 1) {
-      board[6] += board[12 - boardIndex];
-      board[6] += board[boardIndex];
-    } else {
-      board[13] += board[12 - boardIndex];
-      board[13] += board[boardIndex];
-    }
-    board[12 - boardIndex] = 0;
-    board[boardIndex] = 0;
-  }
   updateBoard();
+  console.log(board);
+  // if (gameOver()) {
+  //   alert("Game over!");
+  // }
+}
+
+function gameOver() {
+  let i = 5;
+  let player1_wins = true;
+  let player2_wins = true;
+
+  // Player 1 Pits
+  for (let i = 0; i <= 5; i++) {
+    if (board[i] != 0) {
+      player1_wins = false;
+    }
+  }
+  // Player 2 Pits
+  for (let i = 7; i <= 12; i++) {
+    if (board[i] != 0) {
+      player2_wins = false;
+    }
+
+    if (player1_wins || player2_wins) {
+      alert("Player wins");
+    }
+  }
+
+  if (player1_wins || player2_wins) {
+    alert("Player wins!");
+  }
 }
 
 function updateBoard() {
@@ -124,6 +166,7 @@ document.querySelectorAll(".pit").forEach((pit) => {
       console.log("valid move!");
       makeMove();
       switchTurn();
+      gameOver();
     } else {
       console.log("invalid move");
     }
