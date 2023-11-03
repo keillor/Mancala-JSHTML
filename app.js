@@ -1,7 +1,7 @@
 // Initial Board State
-let board = [4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0];
+// let board = [4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0];
 // let board = [4, 4, 4, 4, 1, 0, 0, 4, 4, 4, 4, 1, 0, 0];
-// let board = [4, 4, 4, 4, 4, 15, 0, 4, 4, 4, 4, 4, 4, 0];
+let board = [4, 4, 4, 4, 4, 15, 0, 4, 4, 4, 4, 4, 15, 0];
 let gameFinished = false;
 let currentPlayer = 1;
 let boardIndex = 0;
@@ -62,6 +62,8 @@ function makeMove() {
     boardIndex += 1;
     if (boardIndex != skipIndex) {
       board[boardIndex] += 1;
+    } else {
+      numPebbles += 1;
     }
     if (boardIndex > 12) {
       boardIndex = -1;
