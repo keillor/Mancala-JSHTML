@@ -91,6 +91,9 @@
           return 0;
         }
         let bonusBool = false;
+        if (event.target.getAttribute("value") == "0") {
+          bonusBool = true;
+        }
         event.target.setAttribute("value", 0);
         let numPOS = num_check(playerPits.indexOf(event.target) + 1);
         while (stones > 0) {
@@ -99,7 +102,20 @@
           //see if last stone lands in goal
           console.log(playerPits[numPOS].getAttribute("class"));
           if (stones == 1) {
+            const goal = playerPits.querySelector(".endcap");
+            var goalIndex = Number(playerPits.indexOf(goal));
+            if (Math.abs(goalIndex - numPOS) > 6) {
+              bonusBool = false;
+            }
             if (bonusBool) {
+              var newTotal =
+                steal(numPOS) +
+                Number(
+                  playerPits.querySelector(".endcap").getAttribute("value")
+                );
+              playerPits
+                .querySelector(".endgoal")
+                .setAttribute("value", newTotal);
               //steal pebbles from opposite side
             } else if (playerPits[numPOS].getAttribute("class") == "endcap") {
               //player qualifies for bonus turn!
@@ -122,6 +138,51 @@
           return (num % 12) - 1;
         }
         return num;
+      }
+
+      function steal(pitID) {
+        switch (Number(pitID)) {
+          case 0:
+            pitID = 11;
+            break;
+          case 1:
+            pitID = 10;
+            break;
+          case 2:
+            pitID = 9;
+            break;
+          case 3:
+            pitID = 8;
+            break;
+          case 4:
+            pitID = 7;
+            break;
+          case 5:
+            pitID = 6;
+            break;
+          case 6:
+            pitID = 5;
+            break;
+          case 7:
+            pitID = 4;
+            break;
+          case 8:
+            pitID = 3;
+            break;
+          case 9:
+            pitID = 2;
+            break;
+          case 10:
+            pitID = 1;
+            break;
+          case 11:
+            pitID = 0;
+            break;
+        }
+        const stealFrom = document.getElementById(pitID);
+        let stolenStones = Number(stealFrom.getAttribute("value"));
+        stealFrom.setAttribute("value", "0");
+        return stolenStones;
       }
     </script>
   </body>
