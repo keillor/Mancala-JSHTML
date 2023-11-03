@@ -1,5 +1,5 @@
 // Initial Board State
-let board = [0, 0, 0, 0, 0, 1, 1, 4, 4, 4, 4, 0, 4, 0];
+let board = [0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0];
 let gameFinished = false;
 let currentPlayer = 1;
 let p1MinPit = 1;
@@ -26,12 +26,6 @@ function switchTurn() {
   currentPlayer = currentPlayer === 1 ? 2 : 1;
   document.getElementById("current-player").innerText = currentPlayer;
 }
-
-function keepTurn() {
-  currentPlayer = currentPlayer === 1 ? 2 : 0;
-  document.getElementById("current-player").innerText = currentPlayer;
-}
-
 
 function isValidMove(pit) {
   // Logic to check if valid move
@@ -84,10 +78,6 @@ function findOppositePit(pit) {
   return oppositePit
 }
 
-//checkEnd() pseudocode
-  //if pit7-12 == 0 or pit1-6 == 0
-    // collect all gems on other pit side and add it to the other players store.
-    //gameEnd()
 
 function checkEnd(currentPlayer) {
   if (currentPlayer == 1) {
@@ -102,15 +92,14 @@ function checkEnd(currentPlayer) {
     }
   }
   
-
   if (currentPlayer == 2) {
     for (let i = p2MinPit; i <= p2MaxPit; i++) {
       if(board[i] != 0) {
-        allZero = true
+        allZero = false;
         break;
       }
       else {
-        allZero = false;
+        allZero = true;
       }
     }
   }
@@ -158,11 +147,16 @@ function addToPits(startingPit, currentPlayer) {
     if (pitSide == 1) {
       if (nextPit == 7 && currentPlayer == 1)  {
         if (i == lastGem) {
-          keepTurn();
+          p1Store += 1;
+          document.getElementById("store-player1").innerText = p1Store
+          switchTurn()
+          break
         }
-        p1Store += 1;
-        document.getElementById("store-player1").innerText = p1Store
-        pitSide = 2;
+        else if (i != lastGem) {
+          p1Store += 1;
+          document.getElementById("store-player1").innerText = p1Store
+          pitSide = 2;
+        }
       }
       else if (board[nextPit] == 0 && i == lastGem && currentPlayer == 1 && nextPit != 13 && nextPit != 7) {
         oppositePit = findOppositePit(nextPit);
@@ -178,7 +172,7 @@ function addToPits(startingPit, currentPlayer) {
         board[nextPit] += 1;
         document.getElementById(`pit${nextPit}`).innerText = board[nextPit]
         nextPit++;
-        pitSide == 2;
+        pitSide = 2;
       }
       else {
         board[nextPit] += 1;
@@ -189,12 +183,17 @@ function addToPits(startingPit, currentPlayer) {
     else if (pitSide == 2){
       if (nextPit == 13 && currentPlayer == 2) {
         if (i == lastGem) {
-          keepTurn();
+          switchTurn()
+          p2Store += 1;
+          document.getElementById("store-player2").innerText = p2Store
+          break
         }
-        p2Store += 1;
-        document.getElementById("store-player2").innerText = p2Store
-        nextPit = 1;
-        pitSide = 1;
+        else if (i != lastGem) {
+          p2Store += 1;
+          document.getElementById("store-player2").innerText = p2Store
+          nextPit = 1;
+          pitSide = 1;
+        }
       }
       else if (board[nextPit] == 0 && i == lastGem && currentPlayer == 2 && nextPit != 13 && nextPit != 7) {
         oppositePit = findOppositePit(nextPit);
@@ -245,5 +244,4 @@ document.querySelectorAll(".pit").forEach((pit) => {
     }  
   });
 });
-
 
