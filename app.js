@@ -252,6 +252,7 @@ function resetGame() {
   allZero = false;
   console.log("reset game");
   updateBoard();
+  document.getElementById("current-player").innerText = currentPlayer;
 }
 
 document.getElementById("reset-button").addEventListener("click", resetGame);

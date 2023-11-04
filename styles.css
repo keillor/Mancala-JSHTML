@@ -1,9 +1,30 @@
+*{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
 body {
+    padding-top: 20px;
     display: flex;
-    flex-direction: column; /* Stack children vertically */
+    flex-direction: column; 
     justify-content: center;
-    align-items: center; /* Center children horizontally */
-    height: 100vh; /* Use the full height of the viewport */
+    align-items: center; 
+    height: fit-content;
+}
+p{
+    text-align: center;
+    font-size: x-small;
+}
+
+button{
+    margin: 30px;
+    padding: 10px;
+    background-color: rgba(42, 157, 233, 0.603);
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+button:hover{
+    background-color: gray;
 }
 
 .board {
@@ -42,6 +63,11 @@ body {
     font-size: small;
 }
 
+.pit:hover {
+    background-color: rgba(111, 111, 104, 0.394);
+    cursor: pointer; 
+}
+
 
 .store{
     border-radius: 100px;
@@ -55,4 +81,26 @@ body {
 .player-turn {
     margin-top: 20px; 
     font-size: larger;
+    padding-bottom: 15px;
+}
+
+@media screen and (max-width: 760px) {
+    body{
+        height: fit-content;
+    }
+    .board {
+        flex-direction: column;
+    }
+    .rows{
+        display: flex;
+        flex-direction: row;
+    }
+    #row1,
+    #row2 {
+        flex-direction: column;
+    }
+    .store{
+        width: 85%;
+        height:100px
+    }
 }
