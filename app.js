@@ -30,7 +30,7 @@ function switchTurn() {
 function isValidMove(pit) {
   // Logic to check if valid move
   let thePit = parseInt(pit.replace("pit", ""));
-  
+
   if (currentPlayer == 1 && player1_moves.has(pit) && board[thePit] != 0) {
     return true;
   }
@@ -256,8 +256,6 @@ document.querySelectorAll(".pit").forEach((pit) => {
   pit.addEventListener("click", function () {
     if (isValidMove(pit.id)) {
       console.log("valid move!");
-      console.log(row2.classList);
-      console.log(row1.classList);
       if (board[pit] != 0) {
         addToPits(pit.id, currentPlayer);
         updateBoard(); // Ensure the board is updated after each move
