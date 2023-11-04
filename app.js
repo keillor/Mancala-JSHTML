@@ -1,5 +1,6 @@
 // Initial Board State
 let board = [0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0];
+// let board = [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0];
 let gameFinished = false;
 let currentPlayer = 1;
 let p1MinPit = 1;
@@ -49,12 +50,12 @@ function updateBoard() {
 }
 
 function getMarblesHtml(count) {
-  let marblesHtml = '';
+  let marblesHtml = "";
   for (let i = 0; i < count; i++) {
     if (i > 0 && i % 4 === 0) {
-      marblesHtml += '<br>'; 
+      marblesHtml += "<br>";
     }
-    marblesHtml += '🔵';
+    marblesHtml += "🔵";
   }
   return marblesHtml;
 }
@@ -119,11 +120,14 @@ function gameEnd() {
 
   if (p1Store > p2Store) {
     console.log("p1 wins!");
+    alert("Player 1 wins!");
   } else if (p2Store > p1Store) {
     console.log("p2 wins!");
+    alert("Player 2 wins!");
   }
   if (p1Store == p2Store) {
     console.log("Tie!");
+    alert("Tie Game");
   }
 }
 
@@ -238,3 +242,15 @@ document.querySelectorAll(".pit").forEach((pit) => {
     }
   });
 });
+
+function resetGame() {
+  board = [0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0];
+  p1Store = board[0];
+  p2Store = board[13];
+  gameFinished = false;
+  allZero = false;
+  console.log("reset game");
+  updateBoard();
+}
+
+document.getElementById("reset-button").addEventListener("click", resetGame);
