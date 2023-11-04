@@ -228,21 +228,46 @@ function addToPits(startingPit, currentPlayer) {
 
 updateBoard();
 
+// Updates class for hover color
+// Player 1 row is row 2
+const row2 = document.getElementById("row2");
+const row1 = document.getElementById("row1");
+row2.classList.add("valid");
+row1.classList.add("invalid");
+
+function updateHoverColor() {
+  if (currentPlayer == 1) {
+    row2.classList.add("valid");
+    row2.classList.remove("invalid");
+    row1.classList.add("invalid");
+    row1.classList.remove("valid");
+  }
+  if (currentPlayer == 2) {
+    row2.classList.add("invalid");
+    row2.classList.remove("valid");
+    row1.classList.add("valid");
+    row1.classList.remove("invalid");
+  }
+}
+
 document.querySelectorAll(".pit").forEach((pit) => {
   pit.addEventListener("click", function () {
     console.log(pit.id);
     if (isValidMove(pit.id)) {
       console.log("valid move!");
-
+      console.log(row2.classList);
+      console.log(row1.classList);
       addToPits(pit.id, currentPlayer);
       updateBoard(); // Ensure the board is updated after each move
       switchTurn();
+      updateHoverColor();
     } else {
       console.log("invalid move");
     }
   });
 });
 
+// Function and event listener to reset game
 function resetGame() {
   board = [0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0];
   p1Store = board[0];
