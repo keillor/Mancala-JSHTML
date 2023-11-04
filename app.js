@@ -247,6 +247,7 @@ function resetGame() {
   board = [0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0];
   p1Store = board[0];
   p2Store = board[13];
+  currentPlayer = 1;
   gameFinished = false;
   allZero = false;
   console.log("reset game");
