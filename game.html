@@ -4,29 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mancala</title>
-    <style>
-      .board {
-        display: flex;
-      }
-
-      #row1,
-      #row2 {
-        display: flex;
-      }
-      .store,
-      .pit {
-        border: 1px solid black;
-        border-radius: 10px;
-        padding: 10px;
-        margin: 5px;
-      }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div class="player-turn">
+      Player <span id="current-player">1</span>'s turn
+    </div>
+    <p>Player 2</p>
     <div class="board">
       <div class="store" id="store-player2">Store</div>
       <div class="rows">
-        <div class="row" id="row1">
+        <div id="row1">
           <div class="pit" id="pit12" value="12">Pit</div>
           <div class="pit" id="pit11" value="11">Pit</div>
           <div class="pit" id="pit10" value="10">Pit</div>
@@ -45,8 +33,9 @@
       </div>
       <div class="store" id="store-player1">Store</div>
     </div>
-    <div class="player-turn">
-      Player <span id="current-player">1</span>'s turn
+    <p>Player 1</p>
+    <div>
+      <button id="reset-button">Reset Game</button>
     </div>
     <script src="app.js"></script>
   </body>

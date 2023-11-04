@@ -1,16 +1,115 @@
-.endcap {
-    align-items: center;
-    background-color: green;
+* {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.endcap:last-child {
-    background-color: red;
+body {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+}
+p {
+  text-align: center;
+  font-size: x-small;
 }
 
-td {
-    border-radius: 25px;
-    background-color: yellow;
-    width: 25px;
-    height: 25px;
-    text-align: center;
+button {
+  margin: 30px;
+  padding: 10px;
+  background-color: rgba(42, 157, 233, 0.603);
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: rgba(32, 113, 167, 0.603);
+}
+
+.board {
+  display: flex;
+  background-color: rgb(211, 211, 190);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.282); /* inner shadow for depth */
+}
+
+#row1,
+#row2 {
+  display: flex;
+}
+.store,
+.pit {
+  border: 5px solid rgba(225, 225, 204, 0.612);
+  background-color: rgba(177, 177, 163, 0.394);
+  padding: 10px;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  width: 90px;
+  justify-content: center;
+  text-align: center;
+}
+
+.pit {
+  height: 100px;
+  border-radius: 100px;
+  border: 5px solid rgba(225, 225, 204, 0.612);
+  background-color: rgba(177, 177, 163, 0.394);
+  padding: 10px;
+  margin: 5px;
+  box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.5);
+  font-size: small;
+}
+
+.pit:hover {
+  /* background-color: rgba(111, 111, 104, 0.394); */
+  cursor: pointer;
+}
+
+.valid .pit:hover {
+  background-color: rgba(66, 155, 74, 0.657);
+  cursor: pointer;
+}
+
+.invalid .pit:hover {
+  background-color: rgba(152, 69, 64, 0.683);
+  cursor: pointer;
+}
+
+.store {
+  border-radius: 100px;
+  border: 5px solid rgba(225, 225, 204, 0.612);
+  background-color: rgba(177, 177, 163, 0.394);
+  padding: 10px;
+  margin: 5px;
+  box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.5); /* inner shadow for depth */
+}
+
+.player-turn {
+  margin-top: 20px;
+  font-size: larger;
+  padding-bottom: 15px;
+}
+
+@media screen and (max-width: 760px) {
+  body {
+    height: fit-content;
+  }
+  .board {
+    flex-direction: column;
+  }
+  .rows {
+    display: flex;
+    flex-direction: row;
+  }
+  #row1,
+  #row2 {
+    flex-direction: column;
+  }
+  .store {
+    width: 85%;
+    height: 100px;
+  }
 }
