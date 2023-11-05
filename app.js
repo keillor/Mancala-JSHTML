@@ -234,7 +234,6 @@ function updateScores() {
 loadGameState();
 updateBoard();
 updateScores();
-console.log(currentPlayer);
 
 // Updates class for hover color
 // Player 1 row is row 2
@@ -266,7 +265,6 @@ document.querySelectorAll(".pit").forEach((pit) => {
       console.log("valid move!");
       if (board[pit] != 0) {
         addToPits(pit.id, currentPlayer);
-        console.log(currentPlayer);
         checkEnd(currentPlayer);
         if (allZero == true) {
           gameEnd();
