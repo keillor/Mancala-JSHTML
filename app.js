@@ -168,7 +168,8 @@ function addToPits(startingPit, currentPlayer) {
         board[nextPit] = 0;
         document.getElementById("store-player1").innerText = p1Store;
         document.getElementById(`pit${nextPit}`).innerText = board[nextPit];
-        document.getElementById(`pit${oppositePit}`).innerText = board[oppositePit];
+        document.getElementById(`pit${oppositePit}`).innerText =
+          board[oppositePit];
         checkEnd(currentPlayer);
       } else if (nextPit == 7 && currentPlayer == 2) {
         board[nextPit] += 1;
@@ -206,7 +207,8 @@ function addToPits(startingPit, currentPlayer) {
         board[nextPit] = 0;
         document.getElementById("store-player2").innerText = p2Store;
         document.getElementById(`pit${nextPit}`).innerText = board[nextPit];
-        document.getElementById(`pit${oppositePit}`).innerText = board[oppositePit];
+        document.getElementById(`pit${oppositePit}`).innerText =
+          board[oppositePit];
         checkEnd(currentPlayer);
       } else if (nextPit == 13 && currentPlayer == 1) {
         nextPit = 1;
@@ -230,7 +232,7 @@ function updateScores() {
   document.getElementById("p1-score").innerText = `Player 1: ${p1Store}`;
   document.getElementById("p2-score").innerText = `Player2: ${p2Store}`;
 }
-
+loadGameState();
 updateBoard();
 updateScores();
 
@@ -270,6 +272,7 @@ document.querySelectorAll(".pit").forEach((pit) => {
         updateBoard();
         updateScores();
         updateHoverColor();
+        saveGameState();
       }
     } else {
       console.log("invalid move");
@@ -287,7 +290,36 @@ function resetGame() {
   allZero = false;
   console.log("reset game");
   updateBoard();
+  updateScores();
   document.getElementById("current-player").innerText = currentPlayer;
+
+  localStorage.removeItem("mancalaGameState");
 }
 
 document.getElementById("reset-button").addEventListener("click", resetGame);
+
+function saveGameState() {
+  const gameState = {
+    board: board,
+    gameFinished: gameFinished,
+    currentPlayer: currentPlayer,
+    p1Store: p1Store,
+    p2Store: p2Store,
+  };
+  localStorage.setItem("mancalaGameState", JSON.stringify(gameState));
+}
+
+function loadGameState() {
+  const savedState = localStorage.getItem("mancalaGameState");
+  if (savedState) {
+    const gameState = JSON.parse(savedState);
+    board = gameState.board;
+    gameFinished = gameState.gameFinished;
+    currentPlayer = gameState.currentPlayer;
+    p1Store = gameState.p1Store;
+    p2Store = gameState.p2Store;
+    updateBoard();
+    updateScores();
+    document.getElementById("current-player").innerText = currentPlayer;
+  }
+}
