@@ -168,8 +168,8 @@ function addToPits(startingPit, currentPlayer) {
         board[nextPit] = 0;
         document.getElementById("store-player1").innerText = p1Store;
         document.getElementById(`pit${nextPit}`).innerText = board[nextPit];
-        document.getElementById(`pit${oppositePit}`).innerText =
-          board[oppositePit];
+        document.getElementById(`pit${oppositePit}`).innerText = board[oppositePit];
+        checkEnd(currentPlayer);
       } else if (nextPit == 7 && currentPlayer == 2) {
         board[nextPit] += 1;
         document.getElementById(`pit${nextPit}`).innerText = board[nextPit];
@@ -206,8 +206,8 @@ function addToPits(startingPit, currentPlayer) {
         board[nextPit] = 0;
         document.getElementById("store-player2").innerText = p2Store;
         document.getElementById(`pit${nextPit}`).innerText = board[nextPit];
-        document.getElementById(`pit${oppositePit}`).innerText =
-          board[oppositePit];
+        document.getElementById(`pit${oppositePit}`).innerText = board[oppositePit];
+        checkEnd(currentPlayer);
       } else if (nextPit == 13 && currentPlayer == 1) {
         nextPit = 1;
         board[nextPit] += 1;
@@ -222,10 +222,6 @@ function addToPits(startingPit, currentPlayer) {
     }
   }
   document.getElementById(`pit${pit}`).innerText = board[pit];
-  checkEnd(currentPlayer);
-  if (allZero == true) {
-    gameEnd();
-  }
 }
 
 // Update Player scores
@@ -266,9 +262,13 @@ document.querySelectorAll(".pit").forEach((pit) => {
       console.log("valid move!");
       if (board[pit] != 0) {
         addToPits(pit.id, currentPlayer);
+        switchTurn();
+        checkEnd(currentPlayer);
+        if (allZero == true) {
+          gameEnd();
+        }
         updateBoard();
         updateScores();
-        switchTurn();
         updateHoverColor();
       }
     } else {
