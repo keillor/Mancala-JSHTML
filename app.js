@@ -228,7 +228,15 @@ function addToPits(startingPit, currentPlayer) {
   }
 }
 
+// Update Player scores
+
+function updateScores() {
+  document.getElementById("p1-score").innerText = `Player 1: ${p1Store}`;
+  document.getElementById("p2-score").innerText = `Player2: ${p2Store}`;
+}
+
 updateBoard();
+updateScores();
 
 // Updates class for hover color
 // Player 1 row is row 2
@@ -258,7 +266,8 @@ document.querySelectorAll(".pit").forEach((pit) => {
       console.log("valid move!");
       if (board[pit] != 0) {
         addToPits(pit.id, currentPlayer);
-        updateBoard(); // Ensure the board is updated after each move
+        updateBoard();
+        updateScores();
         switchTurn();
         updateHoverColor();
       }
