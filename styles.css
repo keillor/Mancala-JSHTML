@@ -87,6 +87,17 @@ button:hover {
   box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.5); /* inner shadow for depth */
 }
 
+#p1-score,
+#p2-score {
+  display: flex;
+  justify-content: center;
+  font-size: 20px;
+  /* writing-mode: vertical-rl; */
+  /* text-orientation: mixed; */
+  writing-mode: vertical-lr;
+  text-orientation: sideways-right;
+}
+
 .player-turn {
   margin-top: 20px;
   font-size: larger;

@@ -30,7 +30,7 @@ function switchTurn() {
 function isValidMove(pit) {
   // Logic to check if valid move
   let thePit = parseInt(pit.replace("pit", ""));
-  
+
   if (currentPlayer == 1 && player1_moves.has(pit) && board[thePit] != 0) {
     return true;
   }
@@ -224,7 +224,15 @@ function addToPits(startingPit, currentPlayer) {
   document.getElementById(`pit${pit}`).innerText = board[pit];
 }
 
+// Update Player scores
+
+function updateScores() {
+  document.getElementById("p1-score").innerText = `Player 1: ${p1Store}`;
+  document.getElementById("p2-score").innerText = `Player2: ${p2Store}`;
+}
+
 updateBoard();
+updateScores();
 
 // Updates class for hover color
 // Player 1 row is row 2
@@ -252,17 +260,15 @@ document.querySelectorAll(".pit").forEach((pit) => {
   pit.addEventListener("click", function () {
     if (isValidMove(pit.id)) {
       console.log("valid move!");
-      console.log(row2.classList);
-      console.log(row1.classList);
       if (board[pit] != 0) {
         addToPits(pit.id, currentPlayer);
-         // Ensure the board is updated after each move
         switchTurn();
         checkEnd(currentPlayer);
         if (allZero == true) {
           gameEnd();
         }
         updateBoard();
+        updateScores();
         updateHoverColor();
       }
     } else {
