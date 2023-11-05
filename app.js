@@ -320,7 +320,6 @@ function loadGameState() {
     p2Store = gameState.p2Store;
     updateBoard();
     updateScores();
-    updateHoverColor();
     document.getElementById("current-player").innerText = currentPlayer;
   }
 }
