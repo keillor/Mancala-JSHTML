@@ -1,6 +1,7 @@
 // Initial Board State
 let board = [0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0];
 // let board = [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0];
+// let board = [0, 0, 0, 3, 4, 0, 0, 4, 0, 0, 0, 0, 0, 0];
 let gameFinished = false;
 let currentPlayer = 1;
 let p1MinPit = 1;
@@ -81,18 +82,16 @@ function findOppositePit(pit) {
 }
 
 function checkEnd(currentPlayer) {
-  if (currentPlayer == 1) {
-    for (let i = p1MinPit; i <= p1MaxPit; i++) {
-      if (board[i] != 0) {
-        allZero = false;
-        break;
-      } else {
-        allZero = true;
-      }
+  for (let i = p1MinPit; i <= p1MaxPit; i++) {
+    if (board[i] != 0) {
+      allZero = false;
+      break;
+    } else {
+      allZero = true;
     }
   }
 
-  if (currentPlayer == 2) {
+  if (!allZero) {
     for (let i = p2MinPit; i <= p2MaxPit; i++) {
       if (board[i] != 0) {
         allZero = false;
@@ -267,11 +266,12 @@ document.querySelectorAll(".pit").forEach((pit) => {
       console.log("valid move!");
       if (board[pit] != 0) {
         addToPits(pit.id, currentPlayer);
-        switchTurn();
+        console.log(currentPlayer);
         checkEnd(currentPlayer);
         if (allZero == true) {
           gameEnd();
         }
+        switchTurn();
         updateBoard();
         updateScores();
         updateHoverColor();
