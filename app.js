@@ -235,6 +235,7 @@ function updateScores() {
 loadGameState();
 updateBoard();
 updateScores();
+console.log(currentPlayer);
 
 // Updates class for hover color
 // Player 1 row is row 2
@@ -257,6 +258,8 @@ function updateHoverColor() {
     row1.classList.remove("invalid");
   }
 }
+
+updateHoverColor();
 
 document.querySelectorAll(".pit").forEach((pit) => {
   pit.addEventListener("click", function () {
