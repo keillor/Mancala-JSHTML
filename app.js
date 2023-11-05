@@ -294,6 +294,7 @@ function resetGame() {
   console.log("reset game");
   updateBoard();
   updateScores();
+  updateHoverColor();
   document.getElementById("current-player").innerText = currentPlayer;
 
   localStorage.removeItem("mancalaGameState");
