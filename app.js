@@ -229,7 +229,7 @@ function addToPits(startingPit, currentPlayer) {
 
 function updateScores() {
   document.getElementById("p1-score").innerText = `Player 1: ${p1Store}`;
-  document.getElementById("p2-score").innerText = `Player2: ${p2Store}`;
+  document.getElementById("p2-score").innerText = `Player 2: ${p2Store}`;
 }
 loadGameState();
 updateBoard();
